@@ -35,7 +35,7 @@ A drone chat agent for drone analytics and operations, built on the smolagents f
 
 1.  **Clone the repository**:
     ```bash
-    git clone <repository-url>
+    git clone https://github.com/LeaderOnePro/deepdrone.git
     cd deepdrone
     ```
 2.  **Install dependencies**:
