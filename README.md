@@ -42,12 +42,18 @@ A drone chat agent for drone analytics and operations, built on the smolagents f
     ```bash
     pip install -r requirements.txt
     ```
-3.  **Set up your API Key**:
+3.  **Python 3.10+ Compatibility**:
+    If you're using Python 3.10 or newer, you need to run the patch script before using DroneKit:
+    ```bash
+    python dronekit_patch.py
+    ```
+    This script fixes the "AttributeError: module 'collections' has no attribute 'MutableMapping'" error by patching the DroneKit library to use collections.abc instead of collections.
+4.  **Set up your API Key**:
     Create a file named `.env` in the root of the project and add your DeepSeek API key:
     ```
     DEEPSEEK_API_KEY=your_deepseek_api_key
     ```
-4.  **Run the application**:
+5.  **Run the application**:
     ```bash
     streamlit run main.py
     ```
