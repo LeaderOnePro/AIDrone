@@ -72,7 +72,9 @@ To test the drone control features in a simulated environment:
 
 ### Real Drone Connection
 
-To connect to a real drone:
+To connect to a real drone, you can either use the chat interface within the application or a command-line script to test your connection first.
+
+#### Via Chat Interface
 
 1.  Ensure your drone is running ArduPilot or PX4 firmware.
 2.  Connect your drone to your computer.
@@ -80,6 +82,26 @@ To connect to a real drone:
     - "Connect to drone at `tcp:192.168.1.1:5760`"
     - "Connect to drone using USB at `/dev/ttyACM0`" (for Linux)
     - "Connect to the drone at `COM4`" (for Windows)
+
+#### Via Terminal (for Connection Testing)
+
+Before using the main application, you can test your hardware connection using the `connection_test.py` script. This is useful for verifying that your drone is communicating correctly with your computer.
+
+Run the script from your terminal, providing the appropriate connection string.
+
+```bash
+# For direct USB connection
+python connection_test.py /dev/ttyACM0  # Linux
+python connection_test.py COM4         # Windows
+
+# For WiFi/Network connection
+python connection_test.py tcp:192.168.1.1:5760
+
+# For telemetry radio connection
+python connection_test.py /dev/ttyUSB0
+```
+
+The script will attempt to connect and print the drone's status and attributes if successful.
 
 Once connected, you can control the drone with commands like:
 - "Take off to 10 meters"
