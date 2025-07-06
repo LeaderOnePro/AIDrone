@@ -51,7 +51,7 @@ class DroneController:
             
         try:
             logger.info(f"Connecting to drone on {self.connection_string}...")
-            self.vehicle = connect(self.connection_string, wait_ready=True, timeout=timeout, baud=57600, heartbeat_timeout=60)
+            self.vehicle = connect(self.connection_string, wait_ready=True, timeout=timeout, baud=115200, heartbeat_timeout=60)
             self.connected = True
             logger.info("Connected to drone successfully")
             

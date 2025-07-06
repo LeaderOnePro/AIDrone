@@ -4,7 +4,7 @@ import time
 
 # Check if a connection string is provided
 if len(sys.argv) < 2:
-    print("错误：请提供连接字符串（例如：COM4）")
+    print("错误：请提供连接字符串（例如：COM5）")
     sys.exit(1)
 
 connection_string = sys.argv[1]
