@@ -18,7 +18,7 @@ import threading
 
 # Set page config at module level - must be first Streamlit command
 st.set_page_config(
-    page_title="DeepDrone Command Center",
+    page_title="DeepDrone-臻巅科技",
     page_icon="🚁",
     layout="wide",
     initial_sidebar_state="expanded",
@@ -255,7 +255,7 @@ class DroneAssistant(CodeAgent):
         ]
         
         if any(pattern in message.lower() for pattern in identity_patterns):
-            identity_response = """I am DeepDrone, an advanced AI assistant designed to help with drone operations and data analysis. I can provide information about flight data, sensor readings, maintenance recommendations, and mission planning for your drone systems. How can I assist with your drone operations today?"""
+            identity_response = """我是 DeepDrone ，一个专为无人机操作与数据分析设计的高级AI助手。我可以为您的无人机系统提供飞行数据、传感器读数、维护建议和任务规划等信息。请问今天需要我如何协助您的无人机作业？"""
             self.add_to_chat_history("assistant", identity_response)
             return identity_response
             
@@ -272,21 +272,21 @@ class DroneAssistant(CodeAgent):
             # Display a message that the model is thinking
             tools_reference = """
             <div style="background-color: #111111; border: 1px dashed #00cc00; border-radius: 5px; padding: 8px; margin-bottom: 10px; color: #00cc00; font-family: monospace; font-size: 12px;">
-            <b>MODEL THINKING:</b> Planning drone operation...<br>
-            <b>Available Tool Functions:</b><br>
-            - connect_to_real_drone(connection_string)<br>
-            - drone_takeoff(altitude)<br>
+            <b>模型思考中:</b> 正在规划无人机操作...<br>
+            <b>可用工具函数:</b><br>
+            - connect_to_real_drone(连接字符串)<br>
+            - drone_takeoff(高度)<br>
             - drone_land()<br>
             - drone_return_home()<br>
-            - drone_fly_to(latitude, longitude, altitude)<br>
+            - drone_fly_to(纬度, 经度, 高度)<br>
             - get_drone_location()<br>
             - get_drone_battery()<br>
-            - execute_drone_mission(waypoints)<br>
+            - execute_drone_mission(航点)<br>
             - disconnect_from_drone()<br>
-            - generate_mission_plan(mission_type, duration_minutes)<br>
-            - analyze_flight_path(flight_id)<br>
-            - check_sensor_readings(sensor_name)<br>
-            - recommend_maintenance(flight_hours)
+            - generate_mission_plan(任务类型, 持续时间_分钟)<br>
+            - analyze_flight_path(飞行ID)<br>
+            - check_sensor_readings(传感器名)<br>
+            - recommend_maintenance(飞行小时数)
             </div>
             """
             thinking_placeholder.markdown(tools_reference, unsafe_allow_html=True)
@@ -305,19 +305,19 @@ class DroneAssistant(CodeAgent):
                 # Display some feedback about the model thinking completion
                 thinking_placeholder.markdown(tools_reference + """
                 <div style="background-color: #111111; border: 1px dashed #00cc00; border-radius: 5px; padding: 8px; margin-bottom: 10px; color: #00cc00; font-family: monospace; font-size: 12px;">
-                <b>MODEL THINKING:</b> Plan completed! Executing drone operations...
+                <b>模型思考中:</b> 规划完成！正在执行无人机操作...
                 </div>
                 """, unsafe_allow_html=True)
             except Exception as e:
                 # Display any errors that occur during execution
                 error_message = f"""
                 <div style="background-color: #330000; border: 1px solid #ff0000; border-radius: 5px; padding: 8px; margin-bottom: 10px; color: #ff0000; font-family: monospace; font-size: 12px;">
-                <b>EXECUTION ERROR:</b> {str(e)}<br>
-                Please try again with correct syntax.
+                <b>执行错误:</b> {str(e)}<br>
+                请使用正确的语法重试。
                 </div>
                 """
                 error_placeholder.markdown(error_message, unsafe_allow_html=True)
-                response = f"Error executing drone operations: {str(e)}. Please try again with proper syntax for parameters."
+                response = f"执行无人机操作时出错: {str(e)}。请使用正确的参数语法重试。"
                 
                 # Update mission status to show error
                 update_mission_status("ERROR", f"Code execution error: {str(e)}")
@@ -366,7 +366,7 @@ def analyze_flight_path(flight_id: str = None) -> str:
         str: Analysis of the flight path including distance, duration, and altitude changes
     """
     if flight_id is None or flight_id not in tool.agent.flight_logs:
-        return "Flight ID not found. Please provide a valid flight ID."
+        return "未找到飞行ID。请提供有效的飞行ID。"
     
     flight_data = tool.agent.flight_logs[flight_id]
     
@@ -496,7 +496,7 @@ def generate_mission_plan(mission_type: str = None, duration_minutes: float = No
         str: A mission plan with waypoints and tasks
     """
     if mission_type is None:
-        return "Please specify a mission type (survey, inspection, delivery, etc.)"
+        return "请指定任务类型（如：survey, inspection, delivery等）"
     
     if duration_minutes is None:
         return "Please specify the expected mission duration in minutes."
@@ -548,7 +548,7 @@ def connect_to_real_drone(connection_string: str = None) -> str:
         str: Status of the connection
     """
     if connection_string is None:
-        return "Error: Connection string is required. Examples: 'udp:127.0.0.1:14550' for simulation, '/dev/ttyACM0' for USB, or 'tcp:192.168.1.1:5760' for WiFi"
+        return "错误: 需要连接字符串。例如: 'udp:127.0.0.1:14550'（仿真），'/dev/ttyACM0'（串口），或 'tcp:192.168.1.1:5760'（WiFi）"
     
     try:
         # Update mission status
@@ -566,7 +566,7 @@ def connect_to_real_drone(connection_string: str = None) -> str:
             
             # Format a nice response
             response = {
-                "status": "Connected successfully",
+                "status": "连接成功",
                 "location": location,
                 "battery": battery
             }
@@ -574,11 +574,11 @@ def connect_to_real_drone(connection_string: str = None) -> str:
         else:
             st.session_state.mission_in_progress = False
             update_mission_status("ERROR", "Connection failed")
-            return "Failed to connect to drone. Check connection string and ensure the drone is powered on."
+            return "连接无人机失败。请检查连接字符串并确保无人机已开机。"
     except Exception as e:
         st.session_state.mission_in_progress = False
         update_mission_status("ERROR", f"Connection error: {str(e)}")
-        return f"Error connecting to drone: {str(e)}"
+        return f"连接无人机出错: {str(e)}"
 
 @tool
 def drone_takeoff(altitude: float = None) -> str:
@@ -600,18 +600,18 @@ def drone_takeoff(altitude: float = None) -> str:
             return "Takeoff aborted due to mission interrupt request"
         
         # Update mission status
-        update_mission_status("TAKING OFF", f"Taking off to {altitude} meters")
+        update_mission_status("TAKING OFF", f"起飞到 {altitude} 米")
         
         success = drone_control.takeoff(altitude)
         if success:
-            update_mission_status("AIRBORNE", f"Reached altitude of {altitude} meters")
-            return f"Takeoff successful! Reached target altitude of {altitude} meters."
+            update_mission_status("AIRBORNE", f"已到达目标高度 {altitude} 米")
+            return f"起飞成功！已到达目标高度 {altitude} 米。"
         else:
-            update_mission_status("ERROR", "Takeoff failed")
-            return "Takeoff failed. Make sure you are connected to the drone and in a safe takeoff area."
+            update_mission_status("ERROR", "起飞失败")
+            return "起飞失败。请确保已连接无人机且处于安全起飞区域。"
     except Exception as e:
-        update_mission_status("ERROR", f"Takeoff error: {str(e)}")
-        return f"Error during takeoff: {str(e)}"
+        update_mission_status("ERROR", f"起飞出错: {str(e)}")
+        return f"起飞过程中出错: {str(e)}"
 
 @tool
 def drone_land() -> str:
@@ -622,19 +622,19 @@ def drone_land() -> str:
     """
     try:
         # Update mission status
-        update_mission_status("LANDING", "Drone is landing")
+        update_mission_status("LANDING", "无人机正在降落")
         
         success = drone_control.land()
         if success:
-            update_mission_status("LANDED", "Drone has landed")
+            update_mission_status("LANDED", "无人机已降落")
             st.session_state.mission_in_progress = False
-            return "Landing command sent successfully. The drone has landed."
+            return "降落指令发送成功。无人机已降落。"
         else:
-            update_mission_status("ERROR", "Landing failed")
-            return "Landing command failed. Make sure you are connected to the drone."
+            update_mission_status("ERROR", "降落失败")
+            return "降落指令失败。请确保已连接无人机。"
     except Exception as e:
-        update_mission_status("ERROR", f"Landing error: {str(e)}")
-        return f"Error during landing: {str(e)}"
+        update_mission_status("ERROR", f"降落出错: {str(e)}")
+        return f"降落过程中出错: {str(e)}"
 
 @tool
 def drone_return_home() -> str:
@@ -645,18 +645,18 @@ def drone_return_home() -> str:
     """
     try:
         # Update mission status
-        update_mission_status("RETURNING", "Returning to launch point")
+        update_mission_status("RETURNING", "返回起飞点")
         
         success = drone_control.return_home()
         if success:
-            update_mission_status("RETURNING", "Drone is returning to launch point")
-            return "Return to home command sent successfully. The drone is returning to its launch point."
+            update_mission_status("RETURNING", "无人机正在返航")
+            return "返航指令发送成功。无人机正在返回起飞点。"
         else:
-            update_mission_status("ERROR", "Return to home failed")
-            return "Return to home command failed. Make sure you are connected to the drone."
+            update_mission_status("ERROR", "返航失败")
+            return "返航指令失败。请确保已连接无人机。"
     except Exception as e:
-        update_mission_status("ERROR", f"Return error: {str(e)}")
-        return f"Error during return to home: {str(e)}"
+        update_mission_status("ERROR", f"返航出错: {str(e)}")
+        return f"返航过程中出错: {str(e)}"
 
 @tool
 def drone_fly_to(latitude: float = None, longitude: float = None, altitude: float = None) -> str:
@@ -671,16 +671,16 @@ def drone_fly_to(latitude: float = None, longitude: float = None, altitude: floa
         str: Status of the goto command
     """
     if latitude is None or longitude is None or altitude is None:
-        return "Error: Latitude, longitude, and altitude are all required."
+        return "错误: 纬度、经度和高度均为必填项。"
     
     try:
         success = drone_control.fly_to(latitude, longitude, altitude)
         if success:
-            return f"Command sent successfully. Flying to: Lat {latitude}, Lon {longitude}, Alt {altitude}m"
+            return f"指令发送成功。飞往: 纬度 {latitude}, 经度 {longitude}, 高度 {altitude}米"
         else:
-            return "Command failed. Make sure you are connected to the drone and in GUIDED mode."
+            return "指令失败。请确保已连接无人机并处于GUIDED模式。"
     except Exception as e:
-        return f"Error during fly to command: {str(e)}"
+        return f"飞行指令出错: {str(e)}"
 
 @tool
 def get_drone_location() -> str:
@@ -693,7 +693,7 @@ def get_drone_location() -> str:
         location = drone_control.get_location()
         return str(location)
     except Exception as e:
-        return f"Error getting drone location: {str(e)}"
+        return f"获取无人机位置出错: {str(e)}"
 
 @tool
 def get_drone_battery() -> str:
@@ -706,7 +706,7 @@ def get_drone_battery() -> str:
         battery = drone_control.get_battery()
         return str(battery)
     except Exception as e:
-        return f"Error getting battery status: {str(e)}"
+        return f"获取电池状态出错: {str(e)}"
 
 @tool
 def execute_drone_mission(waypoints: List[Dict[str, float]] = None) -> str:
@@ -720,22 +720,22 @@ def execute_drone_mission(waypoints: List[Dict[str, float]] = None) -> str:
         str: Status of the mission execution
     """
     if waypoints is None or not isinstance(waypoints, list) or len(waypoints) == 0:
-        return "Error: A list of waypoints is required. Each waypoint should have lat, lon, and alt keys."
+        return "错误: 需要航点列表。每个航点需包含lat, lon, alt键。"
     
     # Validate each waypoint
     for i, wp in enumerate(waypoints):
         if not all(key in wp for key in ["lat", "lon", "alt"]):
-            return f"Error: Waypoint {i} is missing required keys. Each waypoint must have lat, lon, and alt."
+            return f"错误: 航点 {i} 缺少必要字段。每个航点必须有lat, lon, alt。"
     
     try:
         # Update mission status
-        update_mission_status("MISSION", f"Starting mission with {len(waypoints)} waypoints")
+        update_mission_status("MISSION", f"开始任务，共 {len(waypoints)} 个航点")
         
         # Check for mission interrupt before starting
         if st.session_state.interrupt_mission:
             st.session_state.interrupt_mission = False
-            update_mission_status("ABORTED", "Mission aborted before execution")
-            return "Mission aborted due to interrupt request"
+            update_mission_status("ABORTED", "任务在执行前被中断")
+            return "任务因中断请求已取消"
         
         # Execute mission with progress updates
         success = drone_control.execute_mission_plan(waypoints)
@@ -757,21 +757,21 @@ def execute_drone_mission(waypoints: List[Dict[str, float]] = None) -> str:
                 wp = waypoints[i]
                 update_mission_status(
                     "EXECUTING MISSION", 
-                    f"Flying to waypoint {i+1}/{total_waypoints}: lat={wp['lat']:.4f}, lon={wp['lon']:.4f}, alt={wp['alt']}m"
+                    f"飞往航点 {i+1}/{total_waypoints}: 纬度={wp['lat']:.4f}, 经度={wp['lon']:.4f}, 高度={wp['alt']}米"
                 )
                 
                 # Simulate time taken to reach waypoint
                 time.sleep(2)
             
             # Mission completed successfully
-            update_mission_status("MISSION COMPLETE", "All waypoints reached")
-            return f"Mission with {len(waypoints)} waypoints completed successfully."
+            update_mission_status("MISSION COMPLETE", "所有航点已到达")
+            return f"任务完成，共 {len(waypoints)} 个航点。"
         else:
-            update_mission_status("ERROR", "Failed to execute mission")
-            return "Failed to execute mission. Make sure you are connected to the drone."
+            update_mission_status("ERROR", "任务执行失败")
+            return "任务执行失败。请确保已连接无人机。"
     except Exception as e:
-        update_mission_status("ERROR", f"Mission error: {str(e)}")
-        return f"Error executing mission: {str(e)}"
+        update_mission_status("ERROR", f"任务出错: {str(e)}")
+        return f"任务执行出错: {str(e)}"
 
 @tool
 def disconnect_from_drone() -> str:
@@ -782,22 +782,22 @@ def disconnect_from_drone() -> str:
     """
     try:
         # Update mission status
-        update_mission_status("DISCONNECTING", "Disconnecting from drone")
+        update_mission_status("DISCONNECTING", "正在断开无人机连接")
         
         drone_control.disconnect_drone()
         st.session_state.mission_in_progress = False
-        update_mission_status("STANDBY", "Disconnected from drone")
-        return "Successfully disconnected from the drone."
+        update_mission_status("STANDBY", "已断开无人机连接")
+        return "已成功断开无人机连接。"
     except Exception as e:
-        update_mission_status("ERROR", f"Disconnect error: {str(e)}")
-        return f"Error disconnecting from drone: {str(e)}"
+        update_mission_status("ERROR", f"断开连接出错: {str(e)}")
+        return f"断开无人机连接出错: {str(e)}"
 
 def create_deepseek_model():
     """Create a DeepSeek model instance"""
     # Check if DEEPSEEK_API_KEY is set in environment variables
     deepseek_api_key = os.environ.get("DEEPSEEK_API_KEY", "")
     if not deepseek_api_key:
-        st.error("DeepSeek API key not found. Please set the DEEPSEEK_API_KEY environment variable.")
+        st.error("未找到 DeepSeek API 密钥。请设置 DEEPSEEK_API_KEY 环境变量。")
         # Return a placeholder model that returns a fixed response
         class PlaceholderModel:
             def __call__(self, *args, **kwargs):
@@ -1103,19 +1103,19 @@ def main():
     """, unsafe_allow_html=True)
     
     # Futuristic header with glow effect
-    st.markdown("<h1 class='glow-text' style='text-align: center; color: #00ffff; font-family: \"Orbitron\", sans-serif; margin-top: 0; margin-bottom: 5px;'>DEEPDRONE COMMAND CENTER</h1>", unsafe_allow_html=True)
-    st.markdown("<p class='subheader glow-text' style='text-align: center; margin-bottom: 5px;'>ADVANCED AI-POWERED DRONE OPERATIONS</p>", unsafe_allow_html=True)
+    st.markdown("<h1 class='glow-text' style='text-align: center; color: #00ffff; font-family: \"Orbitron\", sans-serif; margin-top: 0; margin-bottom: 5px;'>DeepDrone 指挥中心</h1>", unsafe_allow_html=True)
+    st.markdown("<p class='subheader glow-text' style='text-align: center; margin-bottom: 5px;'>AI 驱动的高级无人机作业平台</p>", unsafe_allow_html=True)
     
     # Compact status display inline
     status_cols = st.columns(4)
     with status_cols[0]:
-        st.markdown("<div class='futuristic-text' style='font-size: 12px;'><span class='status-indicator status-active'></span><b>SYSTEM:</b> ONLINE</div>", unsafe_allow_html=True)
+        st.markdown("<div class='futuristic-text' style='font-size: 12px;'><span class='status-indicator status-active'></span><b>系统:</b> 在线</div>", unsafe_allow_html=True)
     with status_cols[1]:
-        st.markdown("<div class='futuristic-text' style='font-size: 12px;'><span class='status-indicator status-active'></span><b>CONNECTION:</b> SECURE</div>", unsafe_allow_html=True)
+        st.markdown("<div class='futuristic-text' style='font-size: 12px;'><span class='status-indicator status-active'></span><b>连接:</b> 安全</div>", unsafe_allow_html=True)
     with status_cols[2]:
-        st.markdown("<div class='futuristic-text' style='font-size: 12px;'><span class='status-indicator status-active'></span><b>GPS:</b> ACTIVE</div>", unsafe_allow_html=True)
+        st.markdown("<div class='futuristic-text' style='font-size: 12px;'><span class='status-indicator status-active'></span><b>GPS:</b> 活跃</div>", unsafe_allow_html=True)
     with status_cols[3]:
-        st.markdown("<div class='futuristic-text' style='font-size: 12px;'><span class='status-indicator status-active'></span><b>ENCRYPTION:</b> ENABLED</div>", unsafe_allow_html=True)
+        st.markdown("<div class='futuristic-text' style='font-size: 12px;'><span class='status-indicator status-active'></span><b>加密:</b> 已启用</div>", unsafe_allow_html=True)
     
     st.markdown("<hr style='border: 1px solid #00ffff; margin: 5px 0 10px 0;'>", unsafe_allow_html=True)
     
@@ -1198,23 +1198,23 @@ def main():
     
     st.sidebar.markdown(f"""
     <div style='font-family: "Orbitron", sans-serif; color: #00ffff; background-color: rgba(10, 25, 41, 0.9); padding: 15px; border-radius: 10px; border: 1px solid #00ffff; box-shadow: 0 0 15px rgba(0, 255, 255, 0.1);'>
-        <div style='margin-bottom: 10px;'><span class='status-indicator status-active'></span><b>STATUS:</b> <span style="color: {status_color}; font-weight: bold;">{st.session_state.mission_status}</span></div>
-        <div style='margin-bottom: 10px;'><span class='status-indicator status-active'></span><b>PHASE:</b> <span style="color: {status_color};">{st.session_state.mission_phase}</span></div>
-        <div style='margin-bottom: 10px;'><span class='status-indicator status-active'></span><b>ACTIVE:</b> {"YES" if st.session_state.mission_in_progress else "NO"}</div>
-        <div><span class='status-indicator status-active'></span><b>SIGNAL:</b> STRONG</div>
+        <div style='margin-bottom: 10px;'><span class='status-indicator status-active'></span><b>状态:</b> <span style="color: {status_color}; font-weight: bold;">{st.session_state.mission_status}</span></div>
+        <div style='margin-bottom: 10px;'><span class='status-indicator status-active'></span><b>阶段:</b> <span style="color: {status_color};">{st.session_state.mission_phase}</span></div>
+        <div style='margin-bottom: 10px;'><span class='status-indicator status-active'></span><b>任务中:</b> {"是" if st.session_state.mission_in_progress else "否"}</div>
+        <div><span class='status-indicator status-active'></span><b>信号:</b> 强</div>
     </div>
     """, unsafe_allow_html=True)
     
     # Add interrupt button if a mission is in progress
     if st.session_state.mission_in_progress:
-        if st.sidebar.button("⚠️ ABORT MISSION", 
+        if st.sidebar.button("⚠️ 中止任务", 
                             key="abort_button", 
-                            help="Immediately abort the current mission and return the drone to base",
+                            help="立即中止当前任务并让无人机返航",
                             type="primary"):
             interrupt_mission()
     
     # Add mission summary in sidebar
-    st.sidebar.markdown("<div style='color: #00ffff; font-family: \"Orbitron\", sans-serif; font-size: 12px; margin-top: 20px;'><b>MISSION MESSAGES:</b> Appearing in chat</div>", unsafe_allow_html=True)
+    st.sidebar.markdown("<div style='color: #00ffff; font-family: \"Orbitron\", sans-serif; font-size: 12px; margin-top: 20px;'><b>任务消息:</b> 显示在聊天窗口</div>", unsafe_allow_html=True)
     
     # Show just the last message if there are any mission logs
     if st.session_state.mission_log:
@@ -1231,28 +1231,28 @@ def main():
         else:
             entry_style = "color: #00ffff;"
             
-        st.sidebar.markdown(f"""<div style='font-family: \"Orbitron\", sans-serif; font-size: 11px; {entry_style} background-color: rgba(10, 25, 41, 0.9); padding: 8px; border-radius: 5px; border: 1px solid #00ffff; box-shadow: 0 0 10px rgba(0, 255, 255, 0.1);'><span class='status-indicator status-active'></span>LAST: {last_entry}</div>""", unsafe_allow_html=True)
+        st.sidebar.markdown(f"""<div style='font-family: \"Orbitron\", sans-serif; font-size: 11px; {entry_style} background-color: rgba(10, 25, 41, 0.9); padding: 8px; border-radius: 5px; border: 1px solid #00ffff; box-shadow: 0 0 10px rgba(0, 255, 255, 0.1);'><span class='status-indicator status-active'></span>最新: {last_entry}</div>""", unsafe_allow_html=True)
     
     st.sidebar.markdown("<hr style='border: 1px solid #00ffff; margin: 20px 0;'>", unsafe_allow_html=True)
     
     # Command reference
-    st.sidebar.markdown("<h3 style='color: #00ffff; font-family: \"Orbitron\", sans-serif; text-shadow: 0 0 10px #00ffff;'>COMMAND REFERENCE</h3>", unsafe_allow_html=True)
+    st.sidebar.markdown("<h3 style='color: #00ffff; font-family: \"Orbitron\", sans-serif; text-shadow: 0 0 10px #00ffff;'>命令参考</h3>", unsafe_allow_html=True)
     st.sidebar.markdown("""
     <div style='font-family: "Orbitron", sans-serif; color: #00ffff; background-color: rgba(10, 25, 41, 0.9); padding: 15px; border-radius: 10px; border: 1px solid #00ffff; box-shadow: 0 0 15px rgba(0, 255, 255, 0.1);'>
-        <div style='margin-bottom: 10px;'><b>DATA ANALYSIS:</b><br>- "Analyze flight_001"<br>- "Check battery sensor readings"<br>- "Recommend maintenance for 75 flight hours"</div>
-        <div style='margin-bottom: 10px;'><b>MISSION PLANNING:</b><br>- "Create a flight plan with a square pattern"<br>- "Plan a survey mission for 30 minutes"<br>- "Connect to the simulator, take off, execute a simple square flight pattern, and return home"</div>
-        <div><b>CORRECT FUNCTION NAMES:</b><br>- connect_to_real_drone()<br>- drone_takeoff()<br>- drone_land()<br>- drone_return_home()<br>- drone_fly_to()<br>- execute_drone_mission()</div>
+        <div style='margin-bottom: 10px;'><b>数据分析:</b><br>- "分析 flight_001"<br>- "检查电池传感器读数"<br>- "推荐 75 小时飞行后的维护"</div>
+        <div style='margin-bottom: 10px;'><b>任务规划:</b><br>- "创建正方形模式的飞行计划"<br>- "规划 30 分钟的测绘任务"<br>- "连接仿真器，起飞，执行简单正方形飞行并返航"</div>
+        <div><b>正确的函数名:</b><br>- connect_to_real_drone()<br>- drone_takeoff()<br>- drone_land()<br>- drone_return_home()<br>- drone_fly_to()<br>- execute_drone_mission()</div>
     </div>
     """, unsafe_allow_html=True)
     
     st.sidebar.markdown("<hr style='border: 1px solid #00ffff; margin: 20px 0;'>", unsafe_allow_html=True)
     
     # Available data
-    st.sidebar.markdown("<h3 style='color: #00ffff; font-family: \"Orbitron\", sans-serif; text-shadow: 0 0 10px #00ffff;'>AVAILABLE DATA</h3>", unsafe_allow_html=True)
+    st.sidebar.markdown("<h3 style='color: #00ffff; font-family: \"Orbitron\", sans-serif; text-shadow: 0 0 10px #00ffff;'>可用数据</h3>", unsafe_allow_html=True)
     st.sidebar.markdown("""
     <div style='font-family: "Orbitron", sans-serif; color: #00ffff; background-color: rgba(10, 25, 41, 0.9); padding: 15px; border-radius: 10px; border: 1px solid #00ffff; box-shadow: 0 0 15px rgba(0, 255, 255, 0.1);'>
-        <div style='margin-bottom: 10px;'><span class='status-indicator status-active'></span><b>FLIGHT LOGS:</b> flight_001</div>
-        <div><span class='status-indicator status-active'></span><b>SENSORS:</b> battery, imu</div>
+        <div style='margin-bottom: 10px;'><span class='status-indicator status-active'></span><b>飞行日志:</b> flight_001</div>
+        <div><span class='status-indicator status-active'></span><b>传感器:</b> battery, imu</div>
     </div>
     """, unsafe_allow_html=True)
     
@@ -1262,7 +1262,7 @@ def main():
     # Info message about mission logs appearing in chat
     if st.session_state.mission_in_progress:
         st.markdown("""
-        <div style="text-align: center; margin-bottom: 8px; font-family: 'Orbitron', sans-serif; font-size: 12px; color: #00ffff; text-shadow: 0 0 10px #00ffff;"><span class='status-indicator status-active'></span>MISSION LOGS WILL APPEAR IN THIS CHAT WINDOW</div>
+        <div style="text-align: center; margin-bottom: 8px; font-family: 'Orbitron', sans-serif; font-size: 12px; color: #00ffff; text-shadow: 0 0 10px #00ffff;"><span class='status-indicator status-active'></span>任务日志将显示在此聊天窗口</div>
         """, unsafe_allow_html=True)
     
     # Display initial assistant greeting or chat history
@@ -1272,7 +1272,7 @@ def main():
         <div style="display: flex; align-items: flex-start; margin-bottom: 8px;">
             <div style="font-size: 24px; margin-right: 8px; color: #00ffff; text-shadow: 0 0 10px #00ffff;">🚁</div>
             <div style="background-color: rgba(10, 25, 41, 0.9); border: 1px solid #00ffff; border-radius: 10px; padding: 12px; color: #00ffff; flex-grow: 1; font-family: 'Orbitron', sans-serif; box-shadow: 0 0 15px rgba(0, 255, 255, 0.1); backdrop-filter: blur(5px);">
-                DEEPDRONE SYSTEM ONLINE. I am your advanced AI-powered drone operations assistant. How can I assist with your mission today? You can request flight data analysis, sensor readings, maintenance recommendations, or mission planning.
+                DeepDrone 已上线。我是您的AI无人机作业助手。请问有什么可以帮您？您可以请求飞行数据分析、传感器读取、维护建议或任务规划。
             </div>
         </div>
         """, unsafe_allow_html=True)
@@ -1328,13 +1328,13 @@ def main():
         with col1:
             user_message = st.text_input(
                 "COMMAND:",
-                placeholder="Enter your command...",
+                placeholder="请输入您的指令...",
                 label_visibility="collapsed",
                 key="command_input"
             )
         with col2:
             submit_button = st.form_submit_button(
-                "EXECUTE", 
+                "执行", 
                 use_container_width=True
             )
             
@@ -1349,11 +1349,11 @@ def main():
         })
         
         # Process with the agent
-        with st.spinner('PROCESSING...'):
+        with st.spinner('处理中...'):
             # Check for identity questions directly
             identity_patterns = ["who are you", "what are you", "your name", "introduce yourself"]
             if any(pattern in user_message.lower() for pattern in identity_patterns):
-                response = "I am DeepDrone, an advanced AI assistant designed specifically for drone operations and data analysis. I can help with flight data analysis, sensor readings, maintenance recommendations, and mission planning for your drone systems."
+                response = "我是 DeepDrone，一个专为无人机操作与数据分析设计的AI助手。我可以协助飞行数据分析、传感器读取、维护建议和任务规划。"
             else:
                 # Process through the agent's chat method
                 response = st.session_state['drone_agent'].chat(user_message)

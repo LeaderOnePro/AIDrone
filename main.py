@@ -9,58 +9,58 @@ load_dotenv()
 def show_auth_screen():
     """Display the authentication screen with DeepDrone information"""
     
-    st.markdown("<h1 class='futuristic-text' style='text-align: center; color: #00ffff; font-family: \"Orbitron\", sans-serif; margin-top: 0; margin-bottom: 10px;'>DEEPDRONE COMMAND CENTER</h1>", unsafe_allow_html=True)
-    st.markdown("<p class='subheader futuristic-text' style='text-align: center; margin-bottom: 5px;'>ADVANCED AI-POWERED DRONE OPERATIONS</p>", unsafe_allow_html=True)
+    st.markdown("<h1 class='futuristic-text' style='text-align: center; color: #00ffff; font-family: \"Orbitron\", sans-serif; margin-top: 0; margin-bottom: 10px;'>DeepDrone 指挥中心</h1>", unsafe_allow_html=True)
+    st.markdown("<p class='subheader futuristic-text' style='text-align: center; margin-bottom: 5px;'>AI 驱动的高级无人机作业平台</p>", unsafe_allow_html=True)
 
     st.markdown("<div class='auth-container'>", unsafe_allow_html=True)
     
     st.markdown("<div style='text-align: center'>", unsafe_allow_html=True)
-    st.markdown("<h2 style='color: #00ffff; font-family: \"Orbitron\", sans-serif; text-shadow: 0 0 10px #00ffff;'>SYSTEM INITIALIZATION</h2>", unsafe_allow_html=True)
+    st.markdown("<h2 style='color: #00ffff; font-family: \"Orbitron\", sans-serif; text-shadow: 0 0 10px #00ffff;'>系统初始化</h2>", unsafe_allow_html=True)
     
     cols = st.columns(2)
     with cols[0]:
         st.markdown("""
         <div style='font-family: "Orbitron", sans-serif; color: #00ffff;'>
-        <b>SYSTEM STATUS:</b> STANDBY<br>
-        <b>DATABASE:</b> CONNECTED<br>
-        <b>SECURITY:</b> ENABLED
+        <b>系统状态:</b> 待命<br>
+        <b>数据库:</b> 已连接<br>
+        <b>安全性:</b> 已启用
         </div>
         """, unsafe_allow_html=True)
     
     with cols[1]:
         st.markdown("""
         <div style='font-family: "Orbitron", sans-serif; color: #00ffff;'>
-        <b>PROTOCOL:</b> DS-AUTH-1<br>
-        <b>ENCRYPTION:</b> AES-256<br>
-        <b>AI MODULE:</b> OFFLINE
+        <b>协议:</b> DS-AUTH-1<br>
+        <b>加密:</b> AES-256<br>
+        <b>AI模块:</b> 离线
         </div>
         """, unsafe_allow_html=True)
     
     st.markdown("""
     <div style='font-family: "Orbitron", sans-serif; color: #00ffff; text-align: left; margin: 15px 0;'>
-    <p><b>DEEPDRONE</b> is an advanced AI-powered drone operations system:</p>
+    <p><b>DeepDrone</b>是一个先进的AI无人机作业系统：</p>
     
     <ul style='color: #00ffff; margin: 8px 0; padding-left: 20px;'>
-        <li>Real-time <b>flight data analysis</b> and visualization</li>
-        <li>Advanced <b>sensor monitoring</b> with AI detection</li>
-        <li>Intelligent <b>mission planning</b> and execution</li>
-        <li>Predictive <b>maintenance scheduling</b> and diagnostics</li>
+        <li>实时<b>飞行数据分析</b>与可视化</li>
+        <li>AI检测的<b>高级传感器监控</b></li>
+        <li>智能<b>任务规划</b>与执行</li>
+        <li>预测性<b>维护调度</b>与诊断</li>
     </ul>
     </div>
     """, unsafe_allow_html=True)
     
     st.markdown("<hr style='border: 1px solid #00ffff; margin: 10px 0;'>", unsafe_allow_html=True)
     
-    st.markdown("<h3 style='color: #00ffff; font-family: \"Orbitron\", sans-serif; text-shadow: 0 0 10px #00ffff;'>ENTER DEEPSEEK AUTHENTICATION TOKEN:</h3>", unsafe_allow_html=True)
+    st.markdown("<h3 style='color: #00ffff; font-family: \"Orbitron\", sans-serif; text-shadow: 0 0 10px #00ffff;'>请输入 DeepSeek 认证令牌：</h3>", unsafe_allow_html=True)
     
     st.markdown("<div style='background-color: rgba(0, 255, 255, 0.1); padding: 10px; border-radius: 5px; border: 1px solid #00ffff;'>", unsafe_allow_html=True)
-    api_key = st.text_input("DeepSeek Token", type="password", placeholder="Enter DeepSeek API token...", label_visibility="collapsed")
+    api_key = st.text_input("DeepSeek 令牌", type="password", placeholder="请输入 DeepSeek API 令牌...", label_visibility="collapsed")
     st.markdown("</div>", unsafe_allow_html=True)
     
-    if st.button("INITIALIZE SYSTEM"):
+    if st.button("初始化系统"):
         if api_key:
             os.environ["DEEPSEEK_API_KEY"] = api_key
-            st.markdown("<div style='color: #00ffff; background-color: rgba(0, 255, 255, 0.1); padding: 10px; border: 1px solid #00ffff; border-radius: 5px;'>SYSTEM INITIALIZED - WELCOME TO DEEPDRONE</div>", unsafe_allow_html=True)
+            st.markdown("<div style='color: #00ffff; background-color: rgba(0, 255, 255, 0.1); padding: 10px; border: 1px solid #00ffff; border-radius: 5px;'>系统初始化完成 - 欢迎使用DeepDrone</div>", unsafe_allow_html=True)
             st.session_state['authenticated'] = True
             st.rerun()
     
@@ -140,7 +140,7 @@ def initialize_chat_container():
             # Initialize with greeting message
             display_message(
                 "assistant",
-                "DEEPDRONE SYSTEM ONLINE. I am your advanced AI-powered drone operations assistant. How can I assist with your mission today? You can request flight data analysis, sensor readings, maintenance recommendations, or mission planning."
+                "DeepDrone 已上线。我是您的AI无人机作业助手。请问有什么可以帮您？您可以请求飞行数据分析、传感器读取、维护建议或任务规划。"
             )
             
         st.session_state.chat_container = chat_container
