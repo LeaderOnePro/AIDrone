@@ -92,7 +92,7 @@ Run the script from your terminal, providing the appropriate connection string.
 ```bash
 # For direct USB connection
 python connection_test.py /dev/ttyACM0  # Linux
-python connection_test.py COM4         # Windows
+python connection_test.py COM5         # Windows
 
 # For WiFi/Network connection
 python connection_test.py tcp:192.168.1.1:5760
