@@ -68,7 +68,7 @@ To test the drone control features in a simulated environment:
 
 1.  Install the ArduPilot SITL simulator (follow instructions at the [ArduPilot dev guide](https://ardupilot.org/dev/docs/setting-up-sitl-on-linux.html)).
 2.  Start a simulated drone: `sim_vehicle.py -v ArduCopter --console --map`
-3.  Connect to the simulator from the DeepDrone chat interface by typing: `Connect to simulator` or `connect_to_real_drone('udp:127.0.0.1:14550')`.
+3.  Connect to the simulator from the DeepDrone chat interface by typing: `Connect to simulator` or `connect_to_real_drone('tcp:127.0.0.1:5762')`.
 
 ### Real Drone Connection
 
