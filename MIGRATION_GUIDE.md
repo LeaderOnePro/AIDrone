@@ -18,7 +18,7 @@
 
 ### 4. 模型ID
 - **旧**: `deepseek-reasoner`
-- **新**: `glm-4-plus`
+- **新**: `glm-4.5`
 
 ## 配置更新
 
