@@ -6,5 +6,6 @@ seaborn
 smolagents
 python-dotenv
 openai
+requests
 dronekit
 pymavlink

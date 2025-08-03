@@ -51,15 +51,15 @@ def show_auth_screen():
     
     st.markdown("<hr style='border: 1px solid #00ffff; margin: 10px 0;'>", unsafe_allow_html=True)
     
-    st.markdown("<h3 style='color: #00ffff; font-family: \"Orbitron\", sans-serif; text-shadow: 0 0 10px #00ffff;'>请输入 DeepSeek 认证令牌：</h3>", unsafe_allow_html=True)
+    st.markdown("<h3 style='color: #00ffff; font-family: \"Orbitron\", sans-serif; text-shadow: 0 0 10px #00ffff;'>请输入 GLM 认证令牌：</h3>", unsafe_allow_html=True)
     
     st.markdown("<div style='background-color: rgba(0, 255, 255, 0.1); padding: 10px; border-radius: 5px; border: 1px solid #00ffff;'>", unsafe_allow_html=True)
-    api_key = st.text_input("DeepSeek 令牌", type="password", placeholder="请输入 DeepSeek API 令牌...", label_visibility="collapsed")
+    api_key = st.text_input("GLM 令牌", type="password", placeholder="请输入 GLM API 令牌...", label_visibility="collapsed")
     st.markdown("</div>", unsafe_allow_html=True)
     
     if st.button("初始化系统"):
         if api_key:
-            os.environ["DEEPSEEK_API_KEY"] = api_key
+            os.environ["GLM_API_KEY"] = api_key
             st.markdown("<div style='color: #00ffff; background-color: rgba(0, 255, 255, 0.1); padding: 10px; border: 1px solid #00ffff; border-radius: 5px;'>系统初始化完成 - 欢迎使用DeepDrone</div>", unsafe_allow_html=True)
             st.session_state['authenticated'] = True
             st.rerun()
@@ -281,8 +281,8 @@ def main():
         unsafe_allow_html=True
     )
     
-    # Check if user is authenticated via DeepSeek API Key
-    if not os.environ.get("DEEPSEEK_API_KEY") and not st.session_state.get('authenticated', False):
+    # Check if user is authenticated via GLM API Key
+    if not os.environ.get("GLM_API_KEY") and not st.session_state.get('authenticated', False):
         show_auth_screen()
         return
     

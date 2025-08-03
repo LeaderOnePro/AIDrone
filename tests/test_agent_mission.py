@@ -30,18 +30,19 @@ def setup_drone_agent():
     """Create and initialize a DroneAssistant for testing."""
     print("Setting up drone agent...")
     
-    # Check if HF_TOKEN is set in environment variables
-    hf_token = os.environ.get("HF_TOKEN", "")
-    if not hf_token:
-        print("WARNING: No Hugging Face API token found. Using a placeholder model.")
+    # Check if GLM_API_KEY is set in environment variables
+    glm_token = os.environ.get("GLM_API_KEY", "")
+    if not glm_token:
+        print("WARNING: No GLM API key found. Using a placeholder model.")
         # Use our simplified placeholder model instead of the previous complex one
         model = SimplePlaceholderModel()
     else:
         # Use the real model if API token is available
-        model = HfApiModel(
+        from drone.glm_model import GLMModel
+        model = GLMModel(
             max_tokens=2096,
             temperature=0.7,
-            model_id='Qwen/Qwen2.5-Coder-32B-Instruct'
+            model_id='glm-4.5'
         )
     
     # Create the drone assistant with the required tools

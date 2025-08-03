@@ -16,11 +16,11 @@ pinned: false
 
 # DeepDrone
 
-A drone chat agent for drone analytics and operations, built on the smolagents framework with DroneKit integration for real drone control. It uses the DeepSeek API for natural language understanding and mission generation.
+A drone chat agent for drone analytics and operations, built on the smolagents framework with DroneKit integration for real drone control. It uses the GLM-4.5 API for natural language understanding and mission generation.
 
 ## Features
 
-- **Drone Chat**: Interact with a drone assistant through a chat interface powered by DeepSeek.
+- **Drone Chat**: Interact with a drone assistant through a chat interface powered by GLM-4.5.
 - **Visualizations**: Generate flight paths and sensor readings visualizations.
 - **Maintenance Recommendations**: Get maintenance suggestions based on flight hours.
 - **Mission Planning**: Generate mission plans for various drone operations.
@@ -49,9 +49,9 @@ A drone chat agent for drone analytics and operations, built on the smolagents f
     ```
     This script fixes the "AttributeError: module 'collections' has no attribute 'MutableMapping'" error by patching the DroneKit library to use collections.abc instead of collections.
 4.  **Set up your API Key**:
-    Create a file named `.env` in the root of the project and add your DeepSeek API key:
+    Create a file named `.env` in the root of the project and add your GLM API key:
     ```
-    DEEPSEEK_API_KEY=your_deepseek_api_key
+    GLM_API_KEY=your_glm_api_key
     ```
 5.  **Run the application**:
     ```bash
@@ -121,7 +121,7 @@ Once connected, you can control the drone with commands like:
 ## Tech Stack
 
 -   **smolagents** for agent functionality.
--   **DeepSeek API** (`deepseek-reasoner` model) for natural language understanding and code generation.
+-   **GLM-4.5 API** (`glm-4.5` model) for natural language understanding and code generation.
 -   **DroneKit-Python** for real drone control.
 -   **Streamlit** for the user interface.
 -   **Pandas, Matplotlib, and Seaborn** for data analysis and visualization.
