@@ -14,6 +14,12 @@ class Message:
         self.model = ""
         self.created = 0
         self.choices = []
+        # Add token_usage attribute for smolagents compatibility
+        self.token_usage = {
+            "prompt_tokens": 0,
+            "completion_tokens": 0,
+            "total_tokens": 0
+        }
 
 class GLMModel:
     """GLM-4.5 API Model interface for smolagents CodeAgent"""
