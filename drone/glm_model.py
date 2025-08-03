@@ -2,6 +2,10 @@ import os
 from typing import Union, List, Dict, Optional, Any
 import json
 import requests
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 class Message:
     """Simple message class to mimic OpenAI's message format"""
@@ -112,19 +116,89 @@ class GLMModel:
             "Content-Type": "application/json"
         }
         
+        # Clean messages to ensure only valid roles are included
+        cleaned_messages = self._clean_messages(messages)
+        
+        # Ensure max_tokens is reasonable for GLM-4.5
+        actual_max_tokens = max_tokens or self.max_tokens
+        if actual_max_tokens > 8000:  # GLM-4.5 has token limits
+            actual_max_tokens = 8000
+            
         payload = {
             "model": self.model_id,
-            "messages": messages,
-            "max_tokens": max_tokens or self.max_tokens,
+            "messages": cleaned_messages,
+            "max_tokens": actual_max_tokens,
             "temperature": temperature or self.temperature,
+            "stream": False
         }
         
         if stop_sequences:
             payload["stop"] = stop_sequences
         
-        response = requests.post(self.base_url, headers=headers, json=payload)
-        response.raise_for_status()
-        return response.json()
+        # Calculate rough token count for debugging
+        total_chars = sum(len(str(msg.get('content', ''))) for msg in cleaned_messages)
+        estimated_tokens = total_chars // 4  # Rough estimate
+        
+        print(f"GLM API Request - Estimated input tokens: {estimated_tokens}")
+        print(f"GLM API Request - Message count: {len(cleaned_messages)}")
+        if estimated_tokens > 32000:  # GLM-4.5 context limit is usually around 32k
+            print(f"WARNING: Input may exceed GLM-4.5 context limit")
+        
+        try:
+            response = requests.post(self.base_url, headers=headers, json=payload, timeout=30)
+            print(f"Response status: {response.status_code}")
+            
+            if response.status_code != 200:
+                print(f"Error response: {response.text}")
+                
+            response.raise_for_status()
+            return response.json()
+        except requests.exceptions.Timeout:
+            raise Exception("GLM API request timed out")
+        except requests.exceptions.RequestException as e:
+            raise Exception(f"GLM API request failed: {str(e)}")
+        except Exception as e:
+            raise Exception(f"Unexpected error in GLM API request: {str(e)}")
+    
+    def _clean_messages(self, messages: List[Dict]) -> List[Dict]:
+        """Clean messages to ensure compatibility with GLM API"""
+        cleaned = []
+        valid_roles = {'system', 'user', 'assistant'}
+        
+        for msg in messages:
+            if not isinstance(msg, dict):
+                continue
+                
+            role = msg.get('role', '').lower()
+            content = msg.get('content', '')
+            
+            # Skip empty messages
+            if not content or not role:
+                continue
+                
+            # Map or filter invalid roles
+            if role not in valid_roles:
+                # Convert unknown roles to 'user' 
+                role = 'user'
+                
+            # Ensure content is a string
+            if not isinstance(content, str):
+                content = str(content)
+                
+            # Skip extremely long messages that might cause issues
+            if len(content) > 50000:  # Arbitrary limit
+                content = content[:50000] + "... [truncated]"
+                
+            cleaned.append({
+                'role': role,
+                'content': content
+            })
+            
+        # Ensure we have at least one message
+        if not cleaned:
+            cleaned = [{'role': 'user', 'content': 'Hello'}]
+            
+        return cleaned
     
     def _generate_chat_response(self, messages: List[Dict], stop_sequences: Optional[List[str]] = None, max_tokens: int = None, temperature: float = None) -> str:
         """Generate a response from the chat API and return string content"""
