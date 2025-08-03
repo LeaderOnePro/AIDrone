@@ -809,7 +809,7 @@ def create_glm_model():
     return GLMModel(
         max_tokens=2096,
         temperature=0.5,
-        model_id='glm-4-plus'
+        model_id='glm-4.5'
     )
 
 def display_message(role, content, avatar_map=None):

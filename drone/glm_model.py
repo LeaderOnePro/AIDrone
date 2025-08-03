@@ -15,14 +15,14 @@ class GLMModel:
     """GLM-4.5 API Model interface for smolagents CodeAgent"""
     
     def __init__(self, 
-                 model_id='glm-4-plus',
+                 model_id='glm-4.5',
                  max_tokens=2096,
                  temperature=0.5,
                  custom_role_conversions=None):
         """Initialize the GLM-4.5 API Model.
         
         Args:
-            model_id: The model ID for GLM (e.g., 'glm-4-plus')
+            model_id: The model ID for GLM (e.g., 'glm-4.5')
             max_tokens: Maximum number of tokens to generate
             temperature: Sampling temperature (0.0 to 1.0)
             custom_role_conversions: Custom role mappings if needed
@@ -170,7 +170,9 @@ Code:
                     return smol_response
 
                 # If no tool_calls, return the content as is.
-                return message.get('content', '') or ""
+                # GLM-4.5 may put content in 'reasoning_content' when using thinking mode
+                content = message.get('content', '') or message.get('reasoning_content', '') or ""
+                return content
             else:
                 return "No response generated"
                 

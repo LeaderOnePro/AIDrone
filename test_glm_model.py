@@ -3,7 +3,11 @@
 测试GLM模型的简单脚本
 """
 import os
+from dotenv import load_dotenv
 from drone.glm_model import GLMModel, Message
+
+# 加载环境变量
+load_dotenv()
 
 def test_glm_model():
     """测试GLM模型基本功能"""
@@ -19,7 +23,7 @@ def test_glm_model():
     try:
         # 创建模型实例
         model = GLMModel(
-            model_id='glm-4-plus',
+            model_id='glm-4.5',
             max_tokens=100,
             temperature=0.5
         )
@@ -33,10 +37,15 @@ def test_glm_model():
         
         if isinstance(response, Message):
             print("✅ 模型响应成功")
-            print(f"响应内容: {response.content}")
+            print(f"响应类型: {type(response)}")
+            print(f"响应内容: '{response.content}'")
+            if not response.content or response.content.strip() == "":
+                print("⚠️ 警告: 响应内容为空")
             return True
         else:
             print("❌ 模型响应格式错误")
+            print(f"实际响应类型: {type(response)}")
+            print(f"实际响应内容: {response}")
             return False
             
     except Exception as e:

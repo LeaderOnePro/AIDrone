@@ -5,8 +5,7 @@ colorFrom: green
 colorTo: green
 sdk: streamlit
 sdk_version: 1.41.1
-app_file: main.py
-pinned: false
+app_file: main.py-   **GLM-4.5 API** (`glm-4.5` model) for natural language understanding and code generation.pinned: false
 ---
 
 <div align="center">
@@ -121,7 +120,7 @@ Once connected, you can control the drone with commands like:
 ## Tech Stack
 
 -   **smolagents** for agent functionality.
--   **GLM-4.5 API** (`glm-4-plus` model) for natural language understanding and code generation.
+-   **GLM-4.5 API** (`glm-4-0520` model) for natural language understanding and code generation.
 -   **DroneKit-Python** for real drone control.
 -   **Streamlit** for the user interface.
 -   **Pandas, Matplotlib, and Seaborn** for data analysis and visualization.
