@@ -16,7 +16,7 @@ from dronekit import connect, VehicleMode, LocationGlobalRelative
 
 def get_args():
     """Parse command line arguments."""
-    parser = argparse.ArgumentParser(description='Test mission script for DeepDrone')
+    parser = argparse.ArgumentParser(description='Test mission script for AIDrone')
     parser.add_argument('--connect', 
                         help="Vehicle connection target string. If not specified, SITL automatically started.",
                         default='udp:127.0.0.1:14550')

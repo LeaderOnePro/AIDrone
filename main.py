@@ -7,9 +7,9 @@ from drone import drone_chat
 load_dotenv()
 
 def show_auth_screen():
-    """Display the authentication screen with DeepDrone information"""
+    """Display the authentication screen with AIDrone information"""
     
-    st.markdown("<h1 class='futuristic-text' style='text-align: center; color: #00ffff; font-family: \"Orbitron\", sans-serif; margin-top: 0; margin-bottom: 10px;'>DeepDrone 指挥中心</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 class='futuristic-text' style='text-align: center; color: #00ffff; font-family: \"Orbitron\", sans-serif; margin-top: 0; margin-bottom: 10px;'>AIDrone 指挥中心</h1>", unsafe_allow_html=True)
     st.markdown("<p class='subheader futuristic-text' style='text-align: center; margin-bottom: 5px;'>AI 驱动的高级无人机作业平台</p>", unsafe_allow_html=True)
 
     st.markdown("<div class='auth-container'>", unsafe_allow_html=True)
@@ -38,7 +38,7 @@ def show_auth_screen():
     
     st.markdown("""
     <div style='font-family: "Orbitron", sans-serif; color: #00ffff; text-align: left; margin: 15px 0;'>
-    <p><b>DeepDrone</b>是一个先进的AI无人机作业系统：</p>
+    <p><b>AIDrone</b>是一个先进的AI无人机作业系统：</p>
     
     <ul style='color: #00ffff; margin: 8px 0; padding-left: 20px;'>
         <li>实时<b>飞行数据分析</b>与可视化</li>
@@ -60,7 +60,7 @@ def show_auth_screen():
     if st.button("初始化系统"):
         if api_key:
             os.environ["GLM_API_KEY"] = api_key
-            st.markdown("<div style='color: #00ffff; background-color: rgba(0, 255, 255, 0.1); padding: 10px; border: 1px solid #00ffff; border-radius: 5px;'>系统初始化完成 - 欢迎使用DeepDrone</div>", unsafe_allow_html=True)
+            st.markdown("<div style='color: #00ffff; background-color: rgba(0, 255, 255, 0.1); padding: 10px; border: 1px solid #00ffff; border-radius: 5px;'>系统初始化完成 - 欢迎使用AIDrone</div>", unsafe_allow_html=True)
             st.session_state['authenticated'] = True
             st.rerun()
     
@@ -140,7 +140,7 @@ def initialize_chat_container():
             # Initialize with greeting message
             display_message(
                 "assistant",
-                "DeepDrone 已上线。我是您的AI无人机作业助手。请问有什么可以帮您？您可以请求飞行数据分析、传感器读取、维护建议或任务规划。"
+                "AIDrone 已上线。我是您的AI无人机作业助手。请问有什么可以帮您？您可以请求飞行数据分析、传感器读取、维护建议或任务规划。"
             )
             
         st.session_state.chat_container = chat_container

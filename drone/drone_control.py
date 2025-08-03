@@ -1,5 +1,5 @@
 """
-DroneKit-Python interface for DeepDrone - Real Drone Control Module
+DroneKit-Python interface for AIDrone - Real Drone Control Module
 This module provides functions for controlling real drones using DroneKit-Python.
 """
 
