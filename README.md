@@ -1,5 +1,5 @@
 ---
-title: AIDrone
+title: deepdrone-old
 emoji: 🚁
 colorFrom: green
 colorTo: green
@@ -10,11 +10,11 @@ pinned: false
 ---
 
 <div align="center">
-  <img src="media/att.1mxvX7ixOaRuDewek4Lq6JseIxapLkfUqn9ZLDUTCWk.png" alt="AIDrone Interface" width="600"/>
-  <img src="media/att.pVXoULsfT5UF13gBL3MU8gcmuYMqnwBcizz2dhry8D4.png" alt="AIDrone Visualization" width="600"/>
+  <img src="media/att.1mxvX7ixOaRuDewek4Lq6JseIxapLkfUqn9ZLDUTCWk.png" alt="deepdrone-old Interface" width="600"/>
+  <img src="media/att.pVXoULsfT5UF13gBL3MU8gcmuYMqnwBcizz2dhry8D4.png" alt="deepdrone-old Visualization" width="600"/>
 </div>
 
-# AIDrone
+# deepdrone-old
 
 A drone chat agent for drone analytics and operations, built on the smolagents framework with DroneKit integration for real drone control. It uses the GLM-4.5 API for natural language understanding and mission generation.
 
@@ -35,8 +35,8 @@ A drone chat agent for drone analytics and operations, built on the smolagents f
 
 1.  **Clone the repository**:
     ```bash
-    git clone https://github.com/LeaderOnePro/aidrone.git
-    cd aidrone
+    git clone https://github.com/LeaderOnePro/deepdrone-old.git
+    cd deepdrone-old
     ```
 2.  **Install dependencies**:
     ```bash
@@ -68,7 +68,7 @@ To test the drone control features in a simulated environment:
 
 1.  Install the ArduPilot SITL simulator (follow instructions at the [ArduPilot dev guide](https://ardupilot.org/dev/docs/setting-up-sitl-on-linux.html)).
 2.  Start a simulated drone: `sim_vehicle.py -v ArduCopter --console --map`
-3.  Connect to the simulator from the AIDrone chat interface by typing: `Connect to simulator at tcp:127.0.0.1:5762` or `connect_to_real_drone('tcp:127.0.0.1:5762')`.
+3.  Connect to the simulator from the deepdrone-old chat interface by typing: `Connect to simulator at tcp:127.0.0.1:5762` or `connect_to_real_drone('tcp:127.0.0.1:5762')`.
 
 ### Real Drone Connection
 
@@ -78,7 +78,7 @@ To connect to a real drone, you can either use the chat interface within the app
 
 1.  Ensure your drone is running ArduPilot or PX4 firmware.
 2.  Connect your drone to your computer.
-3.  Use natural language commands in the AIDrone chat interface. For example:
+3.  Use natural language commands in the deepdrone-old chat interface. For example:
     - "Connect to drone at `tcp:192.168.1.1:5760`"
     - "Connect to drone using USB at `/dev/ttyACM0`" (for Linux)
     - "Connect to the drone at `COM4`" (for Windows)
