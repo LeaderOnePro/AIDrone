@@ -1,5 +1,5 @@
 """
-Test modules for the AIDrone project.
+Test modules for the deepdrone-old project.
 
 This package contains test scripts to verify the functionality of:
 - Drone connection

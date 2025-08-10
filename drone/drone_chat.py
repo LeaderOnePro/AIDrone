@@ -18,7 +18,7 @@ import threading
 
 # Set page config at module level - must be first Streamlit command
 st.set_page_config(
-    page_title="AIDrone-臻巅科技",
+    page_title="deepdrone-old-臻巅科技",
     page_icon="🚁",
     layout="wide",
     initial_sidebar_state="expanded",
@@ -213,7 +213,7 @@ class DroneAssistant(CodeAgent):
         """
         
         enhanced_prompt = f"""
-        You are AIDrone, an advanced AI assistant designed to help with drone operations and data analysis. You are NOT any other general AI assistant like Qwen, GPT, or Claude. Always identify yourself as AIDrone when asked about your identity. Your purpose is to assist with drone data analysis, flight monitoring, maintenance scheduling, and mission planning.
+        You are deepdrone-old, an advanced AI assistant designed to help with drone operations and data analysis. You are NOT any other general AI assistant like Qwen, GPT, or Claude. Always identify yourself as deepdrone-old when asked about your identity. Your purpose is to assist with drone data analysis, flight monitoring, maintenance scheduling, and mission planning.
         
         You are powered by GLM-4.5, a state-of-the-art language model optimized for technical tasks and tool usage. You excel at understanding complex drone operations and generating precise control commands.
         
@@ -257,7 +257,7 @@ class DroneAssistant(CodeAgent):
         ]
         
         if any(pattern in message.lower() for pattern in identity_patterns):
-            identity_response = """我是 AIDrone ，一个专为无人机操作与数据分析设计的高级AI助手。我可以为您的无人机系统提供飞行数据、传感器读数、维护建议和任务规划等信息。请问今天需要我如何协助您的无人机作业？"""
+            identity_response = """我是 deepdrone-old ，一个专为无人机操作与数据分析设计的高级AI助手。我可以为您的无人机系统提供飞行数据、传感器读数、维护建议和任务规划等信息。请问今天需要我如何协助您的无人机作业？"""
             self.add_to_chat_history("assistant", identity_response)
             return identity_response
             
@@ -339,7 +339,7 @@ class DroneAssistant(CodeAgent):
             # Add a system message to ensure proper identity
             system_message = {
                 "role": "system", 
-                "content": """You are AIDrone, an advanced AI assistant designed to help with drone operations and data analysis. You are NOT any other general AI assistant like Qwen, GPT, or Claude. Always identify yourself as AIDrone when asked about your identity. You are powered by GLM-4.5 and specialize in drone data analysis, flight monitoring, maintenance scheduling, and mission planning."""
+                "content": """You are deepdrone-old, an advanced AI assistant designed to help with drone operations and data analysis. You are NOT any other general AI assistant like Qwen, GPT, or Claude. Always identify yourself as deepdrone-old when asked about your identity. You are powered by GLM-4.5 and specialize in drone data analysis, flight monitoring, maintenance scheduling, and mission planning."""
             }
             
             # Include the system message and user message
@@ -1105,7 +1105,7 @@ def main():
     """, unsafe_allow_html=True)
     
     # Futuristic header with glow effect
-    st.markdown("<h1 class='glow-text' style='text-align: center; color: #00ffff; font-family: \"Orbitron\", sans-serif; margin-top: 0; margin-bottom: 5px;'>AIDrone 指挥中心</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 class='glow-text' style='text-align: center; color: #00ffff; font-family: \"Orbitron\", sans-serif; margin-top: 0; margin-bottom: 5px;'>deepdrone-old 指挥中心</h1>", unsafe_allow_html=True)
     st.markdown("<p class='subheader glow-text' style='text-align: center; margin-bottom: 5px;'>AI 驱动的高级无人机作业平台</p>", unsafe_allow_html=True)
     
     # Compact status display inline
@@ -1274,7 +1274,7 @@ def main():
         <div style="display: flex; align-items: flex-start; margin-bottom: 8px;">
             <div style="font-size: 24px; margin-right: 8px; color: #00ffff; text-shadow: 0 0 10px #00ffff;">🚁</div>
             <div style="background-color: rgba(10, 25, 41, 0.9); border: 1px solid #00ffff; border-radius: 10px; padding: 12px; color: #00ffff; flex-grow: 1; font-family: 'Orbitron', sans-serif; box-shadow: 0 0 15px rgba(0, 255, 255, 0.1); backdrop-filter: blur(5px);">
-                AIDrone 已上线。我是您的AI无人机作业助手。请问有什么可以帮您？您可以请求飞行数据分析、传感器读取、维护建议或任务规划。
+                deepdrone-old 已上线。我是您的AI无人机作业助手。请问有什么可以帮您？您可以请求飞行数据分析、传感器读取、维护建议或任务规划。
             </div>
         </div>
         """, unsafe_allow_html=True)
@@ -1355,7 +1355,7 @@ def main():
             # Check for identity questions directly
             identity_patterns = ["who are you", "what are you", "your name", "introduce yourself"]
             if any(pattern in user_message.lower() for pattern in identity_patterns):
-                response = "我是 AIDrone，一个专为无人机操作与数据分析设计的AI助手。我可以协助飞行数据分析、传感器读取、维护建议和任务规划。"
+                response = "我是 deepdrone-old，一个专为无人机操作与数据分析设计的AI助手。我可以协助飞行数据分析、传感器读取、维护建议和任务规划。"
             else:
                 # Process through the agent's chat method
                 response = st.session_state['drone_agent'].chat(user_message)

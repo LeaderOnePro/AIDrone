@@ -16,6 +16,10 @@ pinned: false
 
 # deepdrone-old
 
+**注意：这是 deepdrone 的 1.0 老版本，不再维护。请使用最新版本的 deepdrone。**
+
+**Note: This is the 1.0 legacy version of deepdrone and is no longer maintained. Please use the latest version of deepdrone.**
+
 A drone chat agent for drone analytics and operations, built on the smolagents framework with DroneKit integration for real drone control. It uses the GLM-4.5 API for natural language understanding and mission generation.
 
 ## Features

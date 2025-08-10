@@ -1,6 +1,6 @@
-# AIDrone Test Prompts
+# deepdrone-old Test Prompts
 
-This document contains example prompts that can be used to test the AIDrone agent's ability to understand natural language mission requests, plan missions, and execute them.
+This document contains example prompts that can be used to test the deepdrone-old agent's ability to understand natural language mission requests, plan missions, and execute them.
 
 ## Running the Tests
 
@@ -9,9 +9,9 @@ This document contains example prompts that can be used to test the AIDrone agen
    cd ~/ardupilot && ./Tools/autotest/sim_vehicle.py -v ArduCopter --console --map
    ```
 
-2. In a new terminal, run the AIDrone application:
+2. In a new terminal, run the deepdrone-old application:
    ```bash
-   cd ~/aidrone && streamlit run main.py
+   cd ~/deepdrone-old && streamlit run main.py
    ```
 
 3. Use one of the example prompts below in the chat interface to test the agent's capabilities.
